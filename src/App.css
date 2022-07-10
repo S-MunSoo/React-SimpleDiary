@@ -1,0 +1,25 @@
+.Diary-Editor {
+  border: 1px solid lightgray;
+  text-align: center;
+  padding: 20px;
+}
+
+.Diary-Editor input,
+textarea {
+  margin-bottom: 20px;
+  width: 500px;
+  padding: 10px;
+}
+.Diary-Editor textarea {
+  height: 160px;
+}
+.Diary-Editor select {
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.Diary-Editor button {
+  width: 500px;
+  padding: 10px;
+  cursor: pointer;
+}
