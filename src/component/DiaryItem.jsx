@@ -1,6 +1,6 @@
 import React from "react";
 
-const DiaryItem = ({ item }) => {
+const DiaryItem = ({ item, onRemove }) => {
   console.log("item", item);
   return (
     <div className="Diary-item">
@@ -14,6 +14,15 @@ const DiaryItem = ({ item }) => {
           {new Date(item.create_date).toLocaleString()}
         </span>
         <div className="content">{item.content}</div>
+        <button
+          onClick={() => {
+            if (window.confirm(`${item.id}번째의 일기를 삭제 하시겠습니까?`)) {
+              onRemove(item.id);
+            }
+          }}
+        >
+          삭제
+        </button>
       </div>
     </div>
   );

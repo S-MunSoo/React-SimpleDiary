@@ -1,12 +1,16 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
-const DiaryEditor = () => {
+const DiaryEditor = ({ onCreate }) => {
   const [state, setState] = useState({
     author: "",
     content: "",
     emotion: 1,
   });
+  // useRef 는 돔요소를 선택할 수 있는 이벤트 객체
+  const authorInput = useRef();
+  const contentInput = useRef();
+
   const handleChangeState = (e) => {
     setState({
       ...state,
@@ -15,14 +19,29 @@ const DiaryEditor = () => {
   };
 
   const handleSubmit = () => {
-    console.log(state);
+    if (state.author.length < 1) {
+      // 작성자 input focus
+      authorInput.current.focus();
+      return;
+    }
+    if (state.content.length < 5) {
+      contentInput.current.focus();
+      return;
+    }
+    onCreate(state.author, state.content, state.emotion);
     alert("저장 성공");
+    setState({
+      author: "",
+      content: "",
+      emotion: 1,
+    });
   };
   return (
     <div className="Diary-Editor">
       <h2>To day 일기장</h2>
       <div>
         <input
+          ref={authorInput}
           name="author"
           type="text"
           value={state.author}
@@ -31,6 +50,7 @@ const DiaryEditor = () => {
         {/* onChange: 값이 바뀔때 수행하는 이벤트  */}
         <div>
           <textarea
+            ret={contentInput}
             name="content"
             value={state.content}
             onChange={handleChangeState}

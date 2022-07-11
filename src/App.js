@@ -1,53 +1,40 @@
 import "./App.css";
 import DiaryEditor from "./component/DiaryEditor";
 import DiaryList from "./component/DiaryList";
-
+import { useState, useRef } from "react";
 // 1. 작성자 칸
 // 2. 일기본문
 // 3. 감정점수
-const dummyList = [
-  {
-    id: 1,
-    author: "신문수",
-    content: "하이",
-    emotion: 1,
-    create_date: new Date().getTime(), //getTime() : date 객체를 밀리센컨트로 변환
-  },
-  {
-    id: 2,
-    author: "정유선",
-    content: "하이1",
-    emotion: 5,
-    create_date: new Date().getTime(),
-  },
-  {
-    id: 3,
-    author: "박하롬",
-    content: "하이2",
-    emotion: 3,
-    create_date: new Date().getTime(),
-  },
-  {
-    id: 4,
-    author: "김민서",
-    content: "하이3",
-    emotion: 2,
-    create_date: new Date().getTime(),
-  },
-  {
-    id: 5,
-    author: "하한이",
-    content: "하이4",
-    emotion: 4,
-    create_date: new Date().getTime(),
-  },
-];
 
 function App() {
+  const [data, setData] = useState([]);
+  const dataId = useRef(0);
+
+  // onCreate 새로운 일기 추가 함수
+  const onCreate = (author, content, emotion) => {
+    const created_data = new Date().getTime();
+    const newItem = {
+      author,
+      content,
+      emotion,
+      created_data,
+      id: dataId.current,
+    };
+    dataId.current += 1;
+    setData([newItem, ...data]);
+  };
+  const onRemove = (targetId) => {
+    // targetId 어떤 id를 갖고 있는 요소를 지우기 원하는지 매개변수로
+    // filter() 함수를 이용해서 삭제 기능 구현 요소 아이템이 트루이면 유지하고 펄스이면 버린다
+    const newDiaryList = data.filter((item) => item.id !== targetId);
+    console.log(newDiaryList);
+    setData(newDiaryList);
+  };
+
   return (
     <div>
-      <DiaryEditor />
-      <DiaryList diaryList={dummyList} />
+      <DiaryEditor onCreate={onCreate} />
+      <DiaryList diaryList={data} onDelete={onRemove} />
     </div>
   );
 }
