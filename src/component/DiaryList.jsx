@@ -1,7 +1,7 @@
 import React from "react";
 import DiaryItem from "./DiaryItem";
 
-const DiaryList = ({ diaryList, onRemove }) => {
+const DiaryList = ({ diaryList, onRemove, onEdit }) => {
   console.log(diaryList);
   return (
     <div className="Diary-list">
@@ -11,7 +11,12 @@ const DiaryList = ({ diaryList, onRemove }) => {
         {/* warning 에러 : index 배열 함수에 고유한 id값이 없을 경우에는 콜백함수에 index를
         사용해도 된다. */}
         {diaryList.map((item, index) => (
-          <DiaryItem key={item.id} item={item} onDelete={onRemove} />
+          <DiaryItem
+            key={item.id}
+            item={item}
+            onDelete={onRemove}
+            onEdit={onEdit}
+          />
         ))}
       </div>
     </div>
