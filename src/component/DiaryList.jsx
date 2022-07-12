@@ -1,8 +1,11 @@
 import React from "react";
 import DiaryItem from "./DiaryItem";
+import { useContext } from "react";
+import { DiaryStateContext } from "../App";
+const DiaryList = () => {
+  // useContext provider를 통해 내보낸지 공급을 받아 올 수 있다
+  const diaryList = useContext(DiaryStateContext);
 
-const DiaryList = ({ diaryList, onRemove, onEdit }) => {
-  console.log(diaryList);
   return (
     <div className="Diary-list">
       <h2>일기 리스트</h2>
@@ -10,12 +13,11 @@ const DiaryList = ({ diaryList, onRemove, onEdit }) => {
       <div>
         {/* warning 에러 : index 배열 함수에 고유한 id값이 없을 경우에는 콜백함수에 index를
         사용해도 된다. */}
-        {diaryList.map((item, index) => (
+        {diaryList.map((it, index) => (
           <DiaryItem
-            key={item.id}
-            item={item}
-            onDelete={onRemove}
-            onEdit={onEdit}
+            key={it.id}
+            // item={item}
+            {...it}
           />
         ))}
       </div>

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useRef } from "react";
-
-const DiaryEditor = ({ onCreate }) => {
+import { DiaryDispatchContext } from "../App";
+const DiaryEditor = () => {
+  const { onCreate } = useContext(DiaryDispatchContext);
   const [state, setState] = useState({
     author: "",
     content: "",
@@ -79,4 +80,4 @@ const DiaryEditor = ({ onCreate }) => {
   );
 };
 
-export default DiaryEditor;
+export default React.memo(DiaryEditor);

@@ -1,30 +1,32 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useRef } from "react";
+import { DiaryDispatchContext } from "../App";
+const DiaryItem = ({ id, author, content, emotion, created_date }) => {
+  const { onRemove, onEdit } = useContext(DiaryDispatchContext);
 
-const DiaryItem = ({ item, onRemove, onEdit }) => {
   const [isEdit, setIsEdit] = useState(false); // 수정하기 isEdit가 트루이면 수정항목이 나타난다
   const toggleIsEdit = () => setIsEdit(!isEdit);
-  const [localContent, setLocalContent] = useState(item.content); // 수정 컨텐츠 수정하기 이전 자동 기본값 설정 item.content
+  const [localContent, setLocalContent] = useState(content); // 수정 컨텐츠 수정하기 이전 자동 기본값 설정 item.content
 
   const localContentInput = useRef();
 
   // confirm = alert 기능
   const handleOnRemove = () => {
-    if (window.confirm(`${item.id}번째의 일기를 삭제 하시겠습니까?`)) {
-      onRemove(item.id);
+    if (window.confirm(`${id}번째의 일기를 삭제 하시겠습니까?`)) {
+      onRemove(id);
     }
   };
   const handleQuoitEdit = () => {
     setIsEdit(false);
-    setLocalContent(item.content);
+    setLocalContent(content);
   };
   const handleOnEdit = () => {
     if (localContent.length < 5) {
       localContentInput.current.focus();
       return;
     }
-    if (window.confirm(`${item.id}번 째 일기를 수정하시겠습니까?`)) {
-      onEdit(item.id, localContent);
+    if (window.confirm(`${id}번 째 일기를 수정하시겠습니까?`)) {
+      onEdit(id, localContent);
       toggleIsEdit();
     }
   };
@@ -32,12 +34,12 @@ const DiaryItem = ({ item, onRemove, onEdit }) => {
     <div className="Diary-item">
       <div className="info">
         <span>
-          작성자 : {item.author} | 감정점수 : {item.emotion}
+          작성자 : {author} | 감정점수 : {emotion}
         </span>
         <br />
         <span className="date">
           {/* new Date().toLocaleString() 현재시각 */}
-          {new Date(item.create_date).toLocaleString()}
+          {new Date(created_date).toLocaleString()}
         </span>
 
         <div className="content">
@@ -51,7 +53,7 @@ const DiaryItem = ({ item, onRemove, onEdit }) => {
               />
             </div>
           ) : (
-            <div>{item.content}</div>
+            <div>{content}</div>
           )}
         </div>
         {isEdit ? (
@@ -70,4 +72,4 @@ const DiaryItem = ({ item, onRemove, onEdit }) => {
   );
 };
 
-export default DiaryItem;
+export default React.memo(DiaryItem);

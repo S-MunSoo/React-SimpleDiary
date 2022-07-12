@@ -8,8 +8,8 @@
 
 #### 학습목표
 
-- 해당 프로젝트를 통해 리액트 기초를 학습하였고, 기본적인 CRUD 학습과 컴포넌트 관리 , 훅(useState , useRef , useMemo , useEffect , useCallback)</br>
-  복잡한 컴포넌트를 분리하고 데이터를 관리하는 방법을 학습하였다.
+- 해당 프로젝트를 통해 리액트 기초를 학습하였고, 기본적인 CRUD 학습과 컴포넌트 구조화 관리 , 리액트 훅(useState , useRef , useMemo , useEffect , useCallback , useReducer ,context)</br>
+  을 사용해보았고 , 복잡한 컴포넌트를 분리하고 데이터를 여러 방법으로 관리하는 법을 학습하였다.
 
 #### 사용 기술 스택
 
