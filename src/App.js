@@ -1,14 +1,37 @@
 import "./App.css";
 import DiaryEditor from "./component/DiaryEditor";
 import DiaryList from "./component/DiaryList";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import axios from "axios";
 // 1. 작성자 칸
 // 2. 일기본문
 // 3. 감정점수
+// https://jsonplaceholder.typicode.com/comments
 
 function App() {
   const [data, setData] = useState([]);
   const dataId = useRef(0);
+
+  const getData = async () => {
+    const url = "https://jsonplaceholder.typicode.com/comments";
+    const res = await axios.get(url);
+    console.log("res?", res.data);
+
+    const initData = res.data.slice(0, 20).map((item) => {
+      return {
+        author: item.email,
+        content: item.body,
+        emotion: Math.floor(Math.random() * 5) + 1,
+        create_date: new Date().getTime(),
+        id: dataId.current++,
+      };
+    });
+    setData(initData);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   // onCreate 새로운 일기 추가 함수
   const onCreate = (author, content, emotion) => {
@@ -37,6 +60,7 @@ function App() {
       )
     );
   };
+
   return (
     <div>
       <DiaryEditor onCreate={onCreate} />
