@@ -1,4 +1,6 @@
-#### SimPle Diary
+### SimPle Diary
+
+https://user-images.githubusercontent.com/102017296/178515098-621f02f3-da84-4b22-94ae-422eecfd844a.mov
 
 #### 구현 기능
 
